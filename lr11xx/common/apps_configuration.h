@@ -59,10 +59,10 @@ extern "C" {
 #define PACKET_TYPE LR11XX_RADIO_PKT_TYPE_LORA
 #endif
 #ifndef RF_FREQ_IN_HZ
-#define RF_FREQ_IN_HZ 490000000U
+#define RF_FREQ_IN_HZ 915000000U
 #endif
 #ifndef TX_OUTPUT_POWER_DBM
-#define TX_OUTPUT_POWER_DBM 13  // range [-17, +22] for sub-G, range [-18, 13] for 2.4G ( HF_PA )
+#define TX_OUTPUT_POWER_DBM 22  // range [-17, +22] for sub-G, range [-18, 13] for 2.4G ( HF_PA )
 #endif
 #ifndef PA_RAMP_TIME
 #define PA_RAMP_TIME LR11XX_RADIO_RAMP_48_US

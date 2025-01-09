@@ -159,8 +159,9 @@ int main( void )
     while( per_index < NB_FRAME )
     {
         apps_common_lr11xx_irq_process( context, IRQ_MASK );
+				
     }
-
+		
     if( per_index > NB_FRAME )  // The last validated packet should not be counted in this case
     {
         nb_ok--;

@@ -82,9 +82,10 @@ void uart_init_base( void ( *callback_rx )( uint8_t data ) );
  * --- PUBLIC FUNCTIONS DEFINITION ---------------------------------------------
  */
 
+static void uart_rx_callback(uint8_t data);
 void uart_init( void )
 {
-    uart_init_base( NULL );
+    uart_init_base( uart_rx_callback );
 }
 
 void uart_init_with_rx_callback( void ( *callback_rx )( uint8_t data ) )
@@ -118,4 +119,9 @@ void uart_init_base( void ( *callback_rx )( uint8_t data ) )
     smtc_hal_mcu_uart_init( ( const smtc_hal_mcu_uart_cfg_t ) &cfg_uart, &uart_cfg_app, &inst_uart );
 }
 
+
+static void uart_rx_callback(uint8_t data)
+{
+    smtc_hal_mcu_uart_send(inst_uart, &data, 1); 
+}
 /* --- EOF ------------------------------------------------------------------ */
