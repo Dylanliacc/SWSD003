@@ -52,25 +52,53 @@ bool ATC_SetEvents(ATC_HandleTypeDef* hAtc, ATC_EventTypeDef* events) {
     return true;
 }
 
+//void ATC_Loop(ATC_HandleTypeDef* hAtc) {
+//    if (hAtc->RxIndex > 0) {
+//        for (uint32_t i = 0; i < hAtc->Events; i++) {
+//      
+//            HAL_DBG_TRACE_INFO("Checking for event: %s\n", hAtc->psEvents[i].Event);
+//            HAL_DBG_TRACE_INFO("Received data: %s\n", hAtc->pReadBuff);
+
+
+//            char* found = strstr((char*)hAtc->pReadBuff, hAtc->psEvents[i].Event);
+//            if (found != NULL && hAtc->psEvents[i].EventCallback != NULL) {
+//                HAL_DBG_TRACE_INFO("Event '%s' matched. Triggering callback.\n", hAtc->psEvents[i].Event);
+//                hAtc->psEvents[i].EventCallback(found);
+//            }
+//        }
+//        hAtc->RxIndex = 0;
+//        memset(hAtc->pReadBuff, 0, hAtc->Size);
+//    }
+//}
+
 void ATC_Loop(ATC_HandleTypeDef* hAtc) {
     if (hAtc->RxIndex > 0) {
         for (uint32_t i = 0; i < hAtc->Events; i++) {
-      
-            HAL_DBG_TRACE_INFO("Checking for event: %s\n", hAtc->psEvents[i].Event);
-            HAL_DBG_TRACE_INFO("Received data: %s\n", hAtc->pReadBuff);
+            //HAL_DBG_TRACE_INFO("Checking for event: %s\n", hAtc->psEvents[i].Event);
+            //HAL_DBG_TRACE_INFO("Received data: %s\n", hAtc->pReadBuff);
 
 
             char* found = strstr((char*)hAtc->pReadBuff, hAtc->psEvents[i].Event);
             if (found != NULL && hAtc->psEvents[i].EventCallback != NULL) {
-                HAL_DBG_TRACE_INFO("Event '%s' matched. Triggering callback.\n", hAtc->psEvents[i].Event);
-                hAtc->psEvents[i].EventCallback(found);
+
+                char* param1 = NULL;
+                char* param2 = NULL;
+
+
+                if (found[strlen(hAtc->psEvents[i].Event)] == '=') {
+
+                    param1 = strtok(found + strlen(hAtc->psEvents[i].Event) + 1, ",");
+
+                    param2 = strtok(NULL, ",");
+                }
+
+                hAtc->psEvents[i].EventCallback(param1, param2);
             }
         }
         hAtc->RxIndex = 0;
         memset(hAtc->pReadBuff, 0, hAtc->Size);
     }
 }
-
 
 
 void ATC_IdleLineCallback(ATC_HandleTypeDef* hAtc, uint16_t Len) {

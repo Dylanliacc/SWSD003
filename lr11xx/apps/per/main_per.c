@@ -129,21 +129,15 @@ int main( void )
     smtc_hal_mcu_init( );
     apps_common_shield_init( );
     uart_init();
-//		while(1){}
-    //HAL_DBG_TRACE_INFO( "===== LR11xx PER example - %s =====\n\n", mode );
-   // apps_common_print_sdk_driver_version( );
-		main_loop();
-//    // 等待并处理AT指令，直到满足某个条件
-//    bool at_command_ready = false;
-//    while (!at_command_ready) {
-//        main_loop();  // 处理AT指令
-//    // 检查是否满足条件
-//    // 例如：if (某个条件) { at_command_ready = true; }
-//    }
-		
-		
+    HAL_DBG_TRACE_INFO( "===== LR11xx PER example - %s =====\n\n", mode );
+    apps_common_print_sdk_driver_version( );
+    // 等待并处理AT指令，直到满足某个条件
+    bool at_command_ready = false;
+    while (!at_command_ready) {
+        at_command_ready = main_loop();  // 处理AT指令
+    }	
+    
     context = apps_common_lr11xx_get_context( );
-
     apps_common_lr11xx_system_init( ( void* ) context );
     apps_common_lr11xx_fetch_and_print_version( ( void* ) context );
     apps_common_lr11xx_radio_init( ( void* ) context );

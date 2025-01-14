@@ -47,6 +47,7 @@ extern "C" {
 #include <stdint.h>
 #include <stdarg.h>
 #include "smtc_hal_mcu_uart.h"
+#include "stm32l4xx.h"                  // Device header
 
 /*
  * -----------------------------------------------------------------------------
@@ -88,7 +89,7 @@ void uart_init_with_rx_callback( void ( *callback_rx )( uint8_t data ) );
 
 void vprint( const char* fmt, va_list argp );
 
-void main_loop(void);
+int main_loop(void);
 
 #ifdef __cplusplus
 }

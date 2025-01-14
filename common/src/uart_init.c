@@ -28,6 +28,8 @@ uint16_t rx_index = 0;
 bool at_command_received = false;
 uint16_t rx_length = 0;
 
+int AT_start_flag = 0;  // 启动标志位
+
 /*
  * -----------------------------------------------------------------------------
  * --- PRIVATE VARIABLES -------------------------------------------------------
@@ -35,7 +37,17 @@ uint16_t rx_length = 0;
 
 static smtc_hal_mcu_uart_inst_t inst_uart = NULL;
 static ATC_HandleTypeDef atc_handle;  // Handle for AT command module
-void atc_per_event_callback(const char* event_data);
+
+void atc_per_event_callback(const char* event_data); //测试指令
+void AT_Param_Callback(char* param1, char* param2); //超参数设置指令
+
+void AT_Power_Callback(char* param1, char* param2);  // 功率设置指令
+
+void AT_Freq_Callback(char* param1, char* param2);  // 频率设置指令
+
+void AT_Help_Callback(char* param1, char* param2);  // 帮助指令
+
+void AT_START_event_callback(char* param1, char* param2);  // 启动指令
 /*
  * -----------------------------------------------------------------------------
  * --- PRIVATE FUNCTIONS DECLARATION -------------------------------------------
@@ -70,13 +82,19 @@ void uart_init(void)
         HAL_DBG_TRACE_ERROR("Failed to initialize AT command handler!\n");
         return;
     }
-
+/***************************************************************************/
     // Configure AT command events
     static ATC_EventTypeDef atc_events[] = {
-        {"AT+PER", atc_per_event_callback},  // Example AT command
-        {NULL, NULL},
-    };
-
+    {"AT+FREQ", AT_Freq_Callback},   // 频率设置指令
+    {"AT+POWER", AT_Power_Callback}, // 功率设置指令
+    {"AT+PARAM", AT_Param_Callback}, // 超参数设置指令
+    {"AT+HELP",AT_Help_Callback},    // 帮助指令
+    {"AT+PER", atc_per_event_callback},  // 测试指令
+    {"AT+START", AT_START_event_callback},  // 启动指令
+    {NULL, NULL}  // 事件结束标志
+};
+		
+/***************************************************************************/		
     if (!ATC_SetEvents(&atc_handle, atc_events)) {
         HAL_DBG_TRACE_ERROR("Failed to set AT events!\n");
         return;
@@ -161,7 +179,7 @@ void ATC_IdleLine(ATC_HandleTypeDef* hAtc, uint16_t Len) {
     HAL_DBG_TRACE_INFO("Updated RxIndex: %d. Current buffer content: %s\n", hAtc->RxIndex, hAtc->pReadBuff);
 }
 
-void main_loop(void)
+int main_loop(void)
 {
     while (1) {
         if (at_command_received) {
@@ -174,6 +192,9 @@ void main_loop(void)
         }
 				LL_mDelay( 20 );
         // 其他主循环代码
+        if(AT_start_flag == 1){
+            return 1;
+        }
     }
 }
 
@@ -182,7 +203,58 @@ void main_loop(void)
 void atc_per_event_callback(const char* event_data)
 {
     HAL_DBG_TRACE_INFO("AT+PER received: %s\n", event_data);
-
+		
     // Add PER measurement reset logic here
     HAL_DBG_TRACE_INFO("Resetting PER measurement...\n");
+}
+
+
+void AT_Freq_Callback(char* param1, char* param2) {
+    if (param1 != NULL) {
+        int frequency = atoi(param1);  // 将频率字符串转换为整数
+        HAL_DBG_TRACE_INFO("Frequency set to: %d Hz\n", frequency);
+        // 在这里进行频率设置的具体操作
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid frequency parameter.\n");
+    }
+}
+
+
+// 处理功率的回调函数
+void AT_Power_Callback(char* param1, char* param2) {
+    if (param1 != NULL) {
+        int power = atoi(param1);  // 将功率字符串转换为整数
+        HAL_DBG_TRACE_INFO("Power set to: %d dBm\n", power);
+        // 在这里进行功率设置的具体操作
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid power parameter.\n");
+    }
+}
+
+
+// 处理超参数的回调函数
+void AT_Param_Callback(char* param1, char* param2) {
+    if (param1 != NULL) {
+        int param = atoi(param1);  // 将超参数字符串转换为整数
+        HAL_DBG_TRACE_INFO("Parameter set to: %d\n", param);
+        // 在这里进行超参数设置的具体操作
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid parameter.\n");
+    }
+}
+
+void AT_Help_Callback(char* param1, char* param2) {
+    HAL_DBG_TRACE_INFO("AT+HELP received.\n");
+    // 在这里添加帮助信息 :写一下下面的帮助信息
+    HAL_DBG_TRACE_INFO("AT+FREQ=<frequency> : Set the frequency in Hz\n");
+    HAL_DBG_TRACE_INFO("AT+POWER=<power> : Set the power in dBm\n");
+    HAL_DBG_TRACE_INFO("AT+PARAM=<param> : Set a parameter(Not work but availilable to call)\n");
+    HAL_DBG_TRACE_INFO("AT+PER : Perform PER measurement(Not work but availilable to call)\n");
+}
+
+void AT_START_event_callback(char* param1, char* param2){
+    HAL_DBG_TRACE_INFO("AT+START received.\n");
+    // 在这里添加启动操作
+    HAL_DBG_TRACE_INFO("Start the operation...\n");
+    AT_start_flag = 1;
 }

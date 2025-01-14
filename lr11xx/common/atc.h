@@ -5,9 +5,12 @@
 #include <stdint.h>
 #include "smtc_hal_mcu_uart.h"
 
+typedef void (*ATC_EventCallback)(char* param1, char* param2);
+
+
 typedef struct {
-    char* Event;
-    void (*EventCallback)(const char*);
+    char* Event;                     
+    ATC_EventCallback EventCallback;  
 } ATC_EventTypeDef;
 
 typedef struct {
