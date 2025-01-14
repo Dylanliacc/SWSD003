@@ -1,0 +1,11 @@
+.\build\lr1120mb1dis\atc.o: ..\..\..\common\atc.c
+.\build\lr1120mb1dis\atc.o: ..\..\..\common\atc.h
+.\build\lr1120mb1dis\atc.o: E:\program\keil\core\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\lr1120mb1dis\atc.o: E:\program\keil\core\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\lr1120mb1dis\atc.o: ..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu_uart.h
+.\build\lr1120mb1dis\atc.o: ..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu_status.h
+.\build\lr1120mb1dis\atc.o: E:\program\keil\core\ARM\ARMCC\Bin\..\include\string.h
+.\build\lr1120mb1dis\atc.o: E:\program\keil\core\ARM\ARMCC\Bin\..\include\stdlib.h
+.\build\lr1120mb1dis\atc.o: ..\..\..\..\common\inc\smtc_hal_dbg_trace.h
+.\build\lr1120mb1dis\atc.o: ..\..\..\..\common\inc\smtc_hal_options.h
+.\build\lr1120mb1dis\atc.o: ..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu.h

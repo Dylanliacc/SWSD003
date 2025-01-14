@@ -49,7 +49,7 @@
 #include "smtc_hal_mcu.h"
 #include "smtc_hal_dbg_trace.h"
 #include "uart_init.h"
-
+#include "atc.h"
 /*
  * -----------------------------------------------------------------------------
  * --- PRIVATE MACROS-----------------------------------------------------------
@@ -121,15 +121,27 @@ static void per_reception_failure_handling( uint16_t* failure_counter );
 /**
  * @brief Main application entry point.
  */
+
+
+
 int main( void )
 {
     smtc_hal_mcu_init( );
     apps_common_shield_init( );
     uart_init();
-
-    HAL_DBG_TRACE_INFO( "===== LR11xx PER example - %s =====\n\n", mode );
-    apps_common_print_sdk_driver_version( );
-
+//		while(1){}
+    //HAL_DBG_TRACE_INFO( "===== LR11xx PER example - %s =====\n\n", mode );
+   // apps_common_print_sdk_driver_version( );
+		main_loop();
+//    // 等待并处理AT指令，直到满足某个条件
+//    bool at_command_ready = false;
+//    while (!at_command_ready) {
+//        main_loop();  // 处理AT指令
+//    // 检查是否满足条件
+//    // 例如：if (某个条件) { at_command_ready = true; }
+//    }
+		
+		
     context = apps_common_lr11xx_get_context( );
 
     apps_common_lr11xx_system_init( ( void* ) context );
@@ -159,7 +171,6 @@ int main( void )
     while( per_index < NB_FRAME )
     {
         apps_common_lr11xx_irq_process( context, IRQ_MASK );
-				
     }
 		
     if( per_index > NB_FRAME )  // The last validated packet should not be counted in this case
@@ -178,9 +189,6 @@ int main( void )
         HAL_DBG_TRACE_PRINTF( "FSK Length Error reception amount: %d \n", nb_fsk_len_error );
     }
 
-    while( 1 )
-    {
-    }
 }
 
 void on_tx_done( void )

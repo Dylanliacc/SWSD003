@@ -1,0 +1,13 @@
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\..\libs\smtc-shields\lr11xx\src\smtc_shield_lr11x0_common.c
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: E:\program\keil\core\ARM\ARMCC\Bin\..\include\stddef.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: E:\program\keil\core\ARM\ARMCC\Bin\..\include\stdbool.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: E:\program\keil\core\ARM\ARMCC\Bin\..\include\stdint.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr11xx_types.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\..\libs\smtc-shields\common\inc\smtc_shield_pinout.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\lr11xx_driver\src\lr11xx_system.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\lr11xx_driver\src\lr11xx_system_types.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\lr11xx_driver\src\lr11xx_types.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\lr11xx_driver\src\lr11xx_radio.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\lr11xx_driver\src\lr11xx_radio_types.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\lr11xx_driver\src\lr11xx_gnss_types.h
+.\build\lr1120mb1dis\smtc_shield_lr11x0_common.o: ..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr11x0_common.h

@@ -88,6 +88,8 @@ void uart_init_with_rx_callback( void ( *callback_rx )( uint8_t data ) );
 
 void vprint( const char* fmt, va_list argp );
 
+void main_loop(void);
+
 #ifdef __cplusplus
 }
 #endif
