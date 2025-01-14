@@ -142,6 +142,11 @@ int main( void )
     apps_common_lr11xx_fetch_and_print_version( ( void* ) context );
     apps_common_lr11xx_radio_init( ( void* ) context );
 
+		if(ATC_M_CW_SWITCH==1){
+			    apps_common_lr11xx_handle_pre_tx( );
+					ASSERT_LR11XX_RC( lr11xx_radio_set_tx_cw( context ) );
+					while( 1 ){}
+		}else{
     ASSERT_LR11XX_RC( lr11xx_system_set_dio_irq_params( context, IRQ_MASK, 0 ) );
     ASSERT_LR11XX_RC( lr11xx_system_clear_irq_status( context, LR11XX_SYSTEM_IRQ_ALL_MASK ) );
 
@@ -151,17 +156,29 @@ int main( void )
     }
     // Adjust reception timeout taking into account time on air
     rx_timeout += get_time_on_air_in_ms( );
-#if RECEIVER == 1
+//#if RECEIVER == 1
+//    apps_common_lr11xx_handle_pre_rx( );
+//    ASSERT_LR11XX_RC( lr11xx_radio_set_rx( context, rx_timeout ) );
+//    memcpy( per_msg, &buffer[1], PAYLOAD_LENGTH - 1 );
+//#else
+//    buffer[0] = 0;
+//    ASSERT_LR11XX_RC( lr11xx_regmem_write_buffer8( context, buffer, PAYLOAD_LENGTH ) );
+//    apps_common_lr11xx_handle_pre_tx( );
+//    ASSERT_LR11XX_RC( lr11xx_radio_set_tx( context, 0 ) );
+//#endif
+
+	if(ATC_M_TXRX_SWITCH ==1){
     apps_common_lr11xx_handle_pre_rx( );
     ASSERT_LR11XX_RC( lr11xx_radio_set_rx( context, rx_timeout ) );
     memcpy( per_msg, &buffer[1], PAYLOAD_LENGTH - 1 );
-#else
+	}else{
     buffer[0] = 0;
     ASSERT_LR11XX_RC( lr11xx_regmem_write_buffer8( context, buffer, PAYLOAD_LENGTH ) );
     apps_common_lr11xx_handle_pre_tx( );
     ASSERT_LR11XX_RC( lr11xx_radio_set_tx( context, 0 ) );
-#endif
+	}
 
+		
     while( per_index < NB_FRAME )
     {
         apps_common_lr11xx_irq_process( context, IRQ_MASK );
@@ -182,7 +199,7 @@ int main( void )
     {
         HAL_DBG_TRACE_PRINTF( "FSK Length Error reception amount: %d \n", nb_fsk_len_error );
     }
-
+	}
 }
 
 void on_tx_done( void )

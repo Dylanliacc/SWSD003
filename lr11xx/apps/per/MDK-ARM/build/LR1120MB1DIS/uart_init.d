@@ -20,4 +20,5 @@
 .\build\lr1120mb1dis\uart_init.o: ..\..\..\..\common\inc\smtc_hal_options.h
 .\build\lr1120mb1dis\uart_init.o: ..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu.h
 .\build\lr1120mb1dis\uart_init.o: ..\..\..\..\libs\smtc-hal-mcu-stm32l4\third_party\STM32CubeL4\Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_ll_utils.h
+.\build\lr1120mb1dis\uart_init.o: ..\..\..\lr11xx_driver\src\lr11xx_radio_types.h
 .\build\lr1120mb1dis\uart_init.o: ..\..\..\common\atc.h

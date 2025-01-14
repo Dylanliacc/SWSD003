@@ -2,7 +2,21 @@
 #include <string.h>
 #include <stdlib.h>
 #include "smtc_hal_dbg_trace.h"
+#include "lr11xx_radio_types.h"
+//golbal macros inital
+int ATC_M_TX_OUTPUT_POWER_DBM = 22;   // range [-17, +22] for sub-G, range [-18, 13] for 2.4G ( HF_PA )
 
+uint32_t ATC_M_RF_FREQ_IN_HZ = 868000000;		
+
+int ATC_M_TXRX_SWITCH =1;
+
+int ATC_M_LORA_SF = LR11XX_RADIO_LORA_SF7;
+
+int ATC_M_LORA_BW = LR11XX_RADIO_LORA_BW_125;
+
+int ATC_M_LORA_CR = LR11XX_RADIO_LORA_CR_4_5;
+
+int ATC_M_CW_SWITCH = 1;
 bool ATC_Init(ATC_HandleTypeDef* hAtc, smtc_hal_mcu_uart_inst_t hUart, uint16_t BufferSize, const char* pName) {
     if (hAtc == NULL || hUart == NULL) {
         HAL_DBG_TRACE_ERROR("ATC_Init failed: invalid parameters.\n");
@@ -52,31 +66,11 @@ bool ATC_SetEvents(ATC_HandleTypeDef* hAtc, ATC_EventTypeDef* events) {
     return true;
 }
 
-//void ATC_Loop(ATC_HandleTypeDef* hAtc) {
-//    if (hAtc->RxIndex > 0) {
-//        for (uint32_t i = 0; i < hAtc->Events; i++) {
-//      
-//            HAL_DBG_TRACE_INFO("Checking for event: %s\n", hAtc->psEvents[i].Event);
-//            HAL_DBG_TRACE_INFO("Received data: %s\n", hAtc->pReadBuff);
-
-
-//            char* found = strstr((char*)hAtc->pReadBuff, hAtc->psEvents[i].Event);
-//            if (found != NULL && hAtc->psEvents[i].EventCallback != NULL) {
-//                HAL_DBG_TRACE_INFO("Event '%s' matched. Triggering callback.\n", hAtc->psEvents[i].Event);
-//                hAtc->psEvents[i].EventCallback(found);
-//            }
-//        }
-//        hAtc->RxIndex = 0;
-//        memset(hAtc->pReadBuff, 0, hAtc->Size);
-//    }
-//}
-
 void ATC_Loop(ATC_HandleTypeDef* hAtc) {
     if (hAtc->RxIndex > 0) {
         for (uint32_t i = 0; i < hAtc->Events; i++) {
             //HAL_DBG_TRACE_INFO("Checking for event: %s\n", hAtc->psEvents[i].Event);
             //HAL_DBG_TRACE_INFO("Received data: %s\n", hAtc->pReadBuff);
-
 
             char* found = strstr((char*)hAtc->pReadBuff, hAtc->psEvents[i].Event);
             if (found != NULL && hAtc->psEvents[i].EventCallback != NULL) {
@@ -102,21 +96,21 @@ void ATC_Loop(ATC_HandleTypeDef* hAtc) {
 
 
 void ATC_IdleLineCallback(ATC_HandleTypeDef* hAtc, uint16_t Len) {
-    HAL_DBG_TRACE_INFO("ATC_IdleLineCallback called with Len: %d, RxIndex: %d\n", Len, hAtc->RxIndex);
+    //HAL_DBG_TRACE_INFO("ATC_IdleLineCallback called with Len: %d, RxIndex: %d\n", Len, hAtc->RxIndex);
 
     if (Len > hAtc->Size - hAtc->RxIndex) {
-        HAL_DBG_TRACE_WARNING("Len (%d) exceeds available buffer space (%d). Truncating to fit.\n", Len, hAtc->Size - hAtc->RxIndex);
+        //HAL_DBG_TRACE_WARNING("Len (%d) exceeds available buffer space (%d). Truncating to fit.\n", Len, hAtc->Size - hAtc->RxIndex);
         Len = hAtc->Size - hAtc->RxIndex;
     }
 
 
-    HAL_DBG_TRACE_INFO("Copying data to pReadBuff at index %d. Data: %.*s\n", hAtc->RxIndex, Len, hAtc->pRxBuff);
+    //HAL_DBG_TRACE_INFO("Copying data to pReadBuff at index %d. Data: %.*s\n", hAtc->RxIndex, Len, hAtc->pRxBuff);
 
 
     memcpy(&hAtc->pReadBuff[hAtc->RxIndex], hAtc->pRxBuff, Len);
     hAtc->RxIndex += Len;
 
-    HAL_DBG_TRACE_INFO("Updated RxIndex: %d. Current buffer content: %s\n", hAtc->RxIndex, hAtc->pReadBuff);
+    //HAL_DBG_TRACE_INFO("Updated RxIndex: %d. Current buffer content: %s\n", hAtc->RxIndex, hAtc->pReadBuff);
 }
 
 

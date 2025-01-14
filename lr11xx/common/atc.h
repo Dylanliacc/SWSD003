@@ -29,4 +29,19 @@ bool ATC_SetEvents(ATC_HandleTypeDef* hAtc, ATC_EventTypeDef* events);
 void ATC_Loop(ATC_HandleTypeDef* hAtc);
 void ATC_IdleLineCallback(ATC_HandleTypeDef* hAtc, uint16_t Len);
 
+
+//macros redefine
+extern int ATC_M_TX_OUTPUT_POWER_DBM;
+
+extern uint32_t ATC_M_RF_FREQ_IN_HZ;
+
+extern int ATC_M_TXRX_SWITCH;
+
+extern int ATC_M_LORA_SF;
+
+extern int ATC_M_LORA_BW;
+
+extern int ATC_M_LORA_CR;
+
+extern int ATC_M_CW_SWITCH;
 #endif

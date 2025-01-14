@@ -121,11 +121,11 @@ static const lr11xx_radio_rssi_calibration_table_t smtc_shield_lr11xx_common_rss
 const lr11xx_system_rfswitch_cfg_t smtc_shield_lr11xx_common_rf_switch_cfg = {
     .enable  = LR11XX_SYSTEM_RFSW0_HIGH | LR11XX_SYSTEM_RFSW1_HIGH | LR11XX_SYSTEM_RFSW2_HIGH,
     .standby = 0,
-    .rx      = LR11XX_SYSTEM_RFSW0_HIGH,
-    .tx      = LR11XX_SYSTEM_RFSW0_HIGH | LR11XX_SYSTEM_RFSW1_HIGH,
-    .tx_hp   = LR11XX_SYSTEM_RFSW1_HIGH,
+    .rx      = LR11XX_SYSTEM_RFSW0_HIGH | LR11XX_SYSTEM_RFSW2_HIGH,
+    .tx      = LR11XX_SYSTEM_RFSW0_HIGH | LR11XX_SYSTEM_RFSW1_HIGH | LR11XX_SYSTEM_RFSW2_HIGH,
+    .tx_hp   = LR11XX_SYSTEM_RFSW1_HIGH | LR11XX_SYSTEM_RFSW2_HIGH,
     .tx_hf   = 0,
-    .gnss    = LR11XX_SYSTEM_RFSW2_HIGH,
+    .gnss    = 0,
     .wifi    = 0,
 };
 

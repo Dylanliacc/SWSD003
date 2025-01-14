@@ -69,7 +69,7 @@
 #include "smtc_shield_lr1121mb1gis.h"
 
 #include "smtc_dbpsk.h"
-
+#include "atc.h"
 /*
  * -----------------------------------------------------------------------------
  * --- PRIVATE MACROS-----------------------------------------------------------
@@ -422,8 +422,8 @@ void apps_common_print_sdk_driver_version( void )
 void apps_common_lr11xx_radio_init( const void* context )
 {
     const smtc_shield_lr11xx_pa_pwr_cfg_t* pa_pwr_cfg =
-        smtc_shield_lr11xx_get_pa_pwr_cfg( &shield, RF_FREQ_IN_HZ, TX_OUTPUT_POWER_DBM );
-
+//        smtc_shield_lr11xx_get_pa_pwr_cfg( &shield, RF_FREQ_IN_HZ, TX_OUTPUT_POWER_DBM );
+				smtc_shield_lr11xx_get_pa_pwr_cfg( &shield, ATC_M_RF_FREQ_IN_HZ, ATC_M_TX_OUTPUT_POWER_DBM);
     if( pa_pwr_cfg == NULL )
     {
         HAL_DBG_TRACE_ERROR( "Invalid target frequency or power level\n" );
@@ -435,9 +435,12 @@ void apps_common_lr11xx_radio_init( const void* context )
     print_common_configuration( );
 
     ASSERT_LR11XX_RC( lr11xx_radio_set_pkt_type( context, PACKET_TYPE ) );
-    ASSERT_LR11XX_RC( lr11xx_radio_set_rf_freq( context, RF_FREQ_IN_HZ ) );
-    ASSERT_LR11XX_RC( lr11xx_radio_set_rssi_calibration(
-        context, smtc_shield_lr11xx_get_rssi_calibration_table( &shield, RF_FREQ_IN_HZ ) ) );
+    //ASSERT_LR11XX_RC( lr11xx_radio_set_rf_freq( context, RF_FREQ_IN_HZ ) );
+		ASSERT_LR11XX_RC( lr11xx_radio_set_rf_freq( context, ATC_M_RF_FREQ_IN_HZ ) );
+//    ASSERT_LR11XX_RC( lr11xx_radio_set_rssi_calibration(
+//        context, smtc_shield_lr11xx_get_rssi_calibration_table( &shield, RF_FREQ_IN_HZ ) ) );
+		ASSERT_LR11XX_RC( lr11xx_radio_set_rssi_calibration(
+    context, smtc_shield_lr11xx_get_rssi_calibration_table( &shield, ATC_M_RF_FREQ_IN_HZ ) ) );
     ASSERT_LR11XX_RC( lr11xx_radio_set_pa_cfg( context, &( pa_pwr_cfg->pa_config ) ) );
     ASSERT_LR11XX_RC( lr11xx_radio_set_tx_params( context, pa_pwr_cfg->power, PA_RAMP_TIME ) );
     ASSERT_LR11XX_RC( lr11xx_radio_set_rx_tx_fallback_mode( context, FALLBACK_MODE ) );
@@ -446,8 +449,11 @@ void apps_common_lr11xx_radio_init( const void* context )
     if( PACKET_TYPE == LR11XX_RADIO_PKT_TYPE_LORA )
     {
         print_lora_configuration( );
-
-        lora_mod_params.ldro = apps_common_compute_lora_ldro( LORA_SPREADING_FACTOR, LORA_BANDWIDTH );
+				lora_mod_params.sf = ATC_M_LORA_SF;
+				lora_mod_params.bw = ATC_M_LORA_BW;
+				lora_mod_params.cr = ATC_M_LORA_CR;
+				lora_mod_params.ldro = apps_common_compute_lora_ldro( ATC_M_LORA_SF, ATC_M_LORA_BW );
+        //lora_mod_params.ldro = apps_common_compute_lora_ldro( LORA_SPREADING_FACTOR, LORA_BANDWIDTH );
         ASSERT_LR11XX_RC( lr11xx_radio_set_lora_mod_params( context, &lora_mod_params ) );
         ASSERT_LR11XX_RC( lr11xx_radio_set_lora_pkt_params( context, &lora_pkt_params ) );
         ASSERT_LR11XX_RC( lr11xx_radio_set_lora_sync_word( context, LORA_SYNCWORD ) );
@@ -846,8 +852,8 @@ void print_common_configuration( void )
 {
     HAL_DBG_TRACE_INFO( "Common parameters:\n" );
     HAL_DBG_TRACE_INFO( "   Packet type   = %s\n", lr11xx_radio_pkt_type_to_str( PACKET_TYPE ) );
-    HAL_DBG_TRACE_INFO( "   RF frequency  = %u Hz\n", RF_FREQ_IN_HZ );
-    HAL_DBG_TRACE_INFO( "   Output power  = %i dBm\n", TX_OUTPUT_POWER_DBM );
+    HAL_DBG_TRACE_INFO( "   RF frequency  = %u Hz\n", ATC_M_RF_FREQ_IN_HZ );
+    HAL_DBG_TRACE_INFO( "   Output power  = %i dBm\n", ATC_M_TX_OUTPUT_POWER_DBM );
     HAL_DBG_TRACE_INFO( "   Fallback mode = %s\n", lr11xx_radio_fallback_modes_to_str( FALLBACK_MODE ) );
     HAL_DBG_TRACE_INFO( ( ENABLE_RX_BOOST_MODE == true ) ? "   Rx boost activated\n" : "   Rx boost deactivated\n" );
     HAL_DBG_TRACE_PRINTF( "\n" );
@@ -856,9 +862,9 @@ void print_common_configuration( void )
 void print_lora_configuration( void )
 {
     HAL_DBG_TRACE_INFO( "LoRa modulation parameters:\n" );
-    HAL_DBG_TRACE_INFO( "   Spreading factor = %s\n", lr11xx_radio_lora_sf_to_str( LORA_SPREADING_FACTOR ) );
-    HAL_DBG_TRACE_INFO( "   Bandwidth        = %s\n", lr11xx_radio_lora_bw_to_str( LORA_BANDWIDTH ) );
-    HAL_DBG_TRACE_INFO( "   Coding rate      = %s\n", lr11xx_radio_lora_cr_to_str( LORA_CODING_RATE ) );
+    HAL_DBG_TRACE_INFO( "   Spreading factor = %s\n", lr11xx_radio_lora_sf_to_str( ATC_M_LORA_SF ) );
+    HAL_DBG_TRACE_INFO( "   Bandwidth        = %s\n", lr11xx_radio_lora_bw_to_str( ATC_M_LORA_BW ) );
+    HAL_DBG_TRACE_INFO( "   Coding rate      = %s\n", lr11xx_radio_lora_cr_to_str( ATC_M_LORA_CR ) );
     HAL_DBG_TRACE_PRINTF( "\n" );
 
     HAL_DBG_TRACE_INFO( "LoRa packet parameters:\n" );

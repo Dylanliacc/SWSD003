@@ -50,7 +50,7 @@ extern "C" {
  */
 
 #ifndef RECEIVER
-#define RECEIVER 1
+#define RECEIVER 0
 #endif
 #define TRANSMITTER !RECEIVER
 

@@ -61,3 +61,5 @@
 .\build\lr1120mb1dis\apps_common.o: ..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr11x1_common.h
 .\build\lr1120mb1dis\apps_common.o: ..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1121mb1gis.h
 .\build\lr1120mb1dis\apps_common.o: ..\..\..\..\libs\smtc_dbpsk_driver\src\smtc_dbpsk.h
+.\build\lr1120mb1dis\apps_common.o: ..\..\..\common\atc.h
+.\build\lr1120mb1dis\apps_common.o: ..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu_uart.h

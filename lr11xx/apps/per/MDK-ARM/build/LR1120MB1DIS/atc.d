@@ -9,3 +9,4 @@
 .\build\lr1120mb1dis\atc.o: ..\..\..\..\common\inc\smtc_hal_dbg_trace.h
 .\build\lr1120mb1dis\atc.o: ..\..\..\..\common\inc\smtc_hal_options.h
 .\build\lr1120mb1dis\atc.o: ..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu.h
+.\build\lr1120mb1dis\atc.o: ..\..\..\lr11xx_driver\src\lr11xx_radio_types.h
