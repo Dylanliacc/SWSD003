@@ -71,10 +71,10 @@ extern "C" {
 #define FALLBACK_MODE LR11XX_RADIO_FALLBACK_STDBY_RC
 #endif
 #ifndef ENABLE_RX_BOOST_MODE
-#define ENABLE_RX_BOOST_MODE false
+#define ENABLE_RX_BOOST_MODE true
 #endif
 #ifndef PAYLOAD_LENGTH
-#define PAYLOAD_LENGTH 7
+#define PAYLOAD_LENGTH 10
 #endif
 
 /*!

@@ -30,36 +30,48 @@ Build target 'LR1120MB1DIS'
 compiling uart_init.c...
 ..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu.h(76): warning:  #1295-D: Deprecated declaration smtc_hal_mcu_init - give arg types
   smtc_hal_mcu_status_t smtc_hal_mcu_init( );
-..\..\..\..\common\src\uart_init.c(108): warning:  #144-D: a value of type "void (*)(const char *)" cannot be used to initialize an entity of type "ATC_EventCallback"
+..\..\..\..\common\src\uart_init.c(111): warning:  #144-D: a value of type "void (*)(const char *)" cannot be used to initialize an entity of type "ATC_EventCallback"
       {"AT+PER", atc_per_event_callback},  // 测试指令
-..\..\..\..\common\src\uart_init.c(126): warning:  #223-D: function "vsprintf" declared implicitly
+..\..\..\..\common\src\uart_init.c(129): warning:  #223-D: function "vsprintf" declared implicitly
       if (0 < vsprintf(string, fmt, argp)) {  // Build the formatted string
-..\..\..\..\common\src\uart_init.c(146): warning:  #191-D: type qualifier is meaningless on cast type
+..\..\..\..\common\src\uart_init.c(149): warning:  #191-D: type qualifier is meaningless on cast type
       int init_result = smtc_hal_mcu_uart_init(( const smtc_hal_mcu_uart_cfg_t )&cfg_uart, &uart_cfg_app, &inst_uart);
-..\..\..\..\common\src\uart_init.c(230): warning:  #223-D: function "atoi" declared implicitly
-          int frequency = atoi(param1);  // 将频率字符串转换为整�?
-..\..\..\..\common\src\uart_init.c(243): warning:  #223-D: function "atoi" declared implicitly
+..\..\..\..\common\src\uart_init.c(236): warning:  #223-D: function "strtoul" declared implicitly
+          uint32_t frequency = strtoul(param1, &endptr, 10);  // 使用 strtoul 转换字符串为 uint32_t
+..\..\..\..\common\src\uart_init.c(252): warning:  #223-D: function "atoi" declared implicitly
           int power = atoi(param1);  // 将功率字符串转换为整�?
-..\..\..\..\common\src\uart_init.c(256): warning:  #223-D: function "atoi" declared implicitly
+..\..\..\..\common\src\uart_init.c(265): warning:  #223-D: function "atoi" declared implicitly
           int param = atoi(param1);  // 将超参数字符串转换为整数
-..\..\..\..\common\src\uart_init.c(269): warning:  #223-D: function "atoi" declared implicitly
+..\..\..\..\common\src\uart_init.c(278): warning:  #223-D: function "atoi" declared implicitly
           int param = atoi(param1);  // 将超参数字符串转换为整数
-..\..\..\..\common\src\uart_init.c(311): warning:  #223-D: function "atoi" declared implicitly
+..\..\..\..\common\src\uart_init.c(320): warning:  #223-D: function "atoi" declared implicitly
           int param = atoi(param1);  // 将超参数字符串转换为整数
-..\..\..\..\common\src\uart_init.c(365): warning:  #223-D: function "atoi" declared implicitly
+..\..\..\..\common\src\uart_init.c(374): warning:  #223-D: function "atoi" declared implicitly
           int param = atoi(param1);  // 将超参数字符串转换为整数
-..\..\..\..\common\src\uart_init.c(459): warning:  #223-D: function "atoi" declared implicitly
+..\..\..\..\common\src\uart_init.c(468): warning:  #223-D: function "atoi" declared implicitly
           int param = atoi(param1);  
-..\..\..\..\common\src\uart_init.c(470): warning:  #223-D: function "atoi" declared implicitly
+..\..\..\..\common\src\uart_init.c(479): warning:  #223-D: function "atoi" declared implicitly
           int param = atoi(param1);  
-..\..\..\..\common\src\uart_init.c(477): warning:  #1-D: last line of file ends without a newline
-  }
+..\..\..\..\common\src\uart_init.c(490): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
 ..\..\..\..\common\src\uart_init.c: 13 warnings, 0 errors
+compiling main_per.c...
+..\..\..\common\lr11xx_hal_context.h(111): warning:  #1-D: last line of file ends without a newline
+  #endif  // LR11XX_HAL_CONTEXT_H
+..\..\..\common\apps_common.h(89): warning:  #1295-D: Deprecated declaration apps_common_lr11xx_get_context - give arg types
+  lr11xx_hal_context_t* apps_common_lr11xx_get_context( );
+..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu.h(76): warning:  #1295-D: Deprecated declaration smtc_hal_mcu_init - give arg types
+  smtc_hal_mcu_status_t smtc_hal_mcu_init( );
+..\main_per.c(379): warning:  #1-D: last line of file ends without a newline
+  }
+..\main_per.c(96): warning:  #177-D: variable "rolling_counter"  was declared but never referenced
+  static uint8_t rolling_counter = 0;
+..\main_per.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=31744 RO-data=2800 RW-data=256 ZI-data=2776  
+Program Size: Code=32800 RO-data=2812 RW-data=256 ZI-data=2792  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bincombined --output=per.bin .\build\LR1120MB1DIS\per.axf
-".\build\LR1120MB1DIS\per.axf" - 0 Error(s), 13 Warning(s).
+".\build\LR1120MB1DIS\per.axf" - 0 Error(s), 18 Warning(s).
 
 <h2>Software Packages used:</h2>
 

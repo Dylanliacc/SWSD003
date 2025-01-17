@@ -52,6 +52,8 @@ void AT_BW_Callback(char* param1, char* param2);  // BW设置指令
 
 void AT_CR_Callback(char* param1, char* param2);  // CR设置指令
 
+void AT_NB_FRAME_event_callback(char* param1, char* param2);  // NB_FRAME设置指令
+
 void AT_Help_Callback(char* param1, char* param2);  // 帮助指令
 
 void AT_CW_event_callback(char* param1, char* param2);  
@@ -104,6 +106,7 @@ void uart_init(void)
     {"AT+BW", AT_BW_Callback},  // BW设置指令
     {"AT+CR", AT_CR_Callback},  // CR设置指令
 		{"AT+CWSW", AT_CW_event_callback},  // 
+		{"AT+NBFRAME", AT_NB_FRAME_event_callback},
     {"AT+HELP",AT_Help_Callback},    // 帮助指令
     {"AT+PER", atc_per_event_callback},  // 测试指令
     {"AT+START", AT_START_event_callback},  // 启动指令
@@ -225,12 +228,18 @@ void atc_per_event_callback(const char* event_data)
 }
 
 
+
+
 void AT_Freq_Callback(char* param1, char* param2) {
     if (param1 != NULL) {
-        int frequency = atoi(param1);  // 将频率字符串转换为整数
-        HAL_DBG_TRACE_INFO("Frequency set to: %d Hz\n", frequency);
-        // 在这里进行频率设置的具体操作
-				ATC_M_RF_FREQ_IN_HZ =frequency;
+        char* endptr;
+        uint32_t frequency = strtoul(param1, &endptr, 10);  // 使用 strtoul 转换字符串为 uint32_t
+        if (*endptr != '\0') {
+            HAL_DBG_TRACE_INFO("Invalid frequency parameter: non-numeric character found.\n");
+        } else {
+            HAL_DBG_TRACE_INFO("Frequency set to: %u Hz\n", frequency);
+            ATC_M_RF_FREQ_IN_HZ = frequency;
+        }
     } else {
         HAL_DBG_TRACE_INFO("Invalid frequency parameter.\n");
     }
@@ -465,6 +474,17 @@ void AT_TRSW_event_callback(char* param1, char* param2){
     }
 }
 
+void AT_NB_FRAME_event_callback(char* param1, char* param2){
+    if (param1 != NULL) {
+        int param = atoi(param1);  
+        HAL_DBG_TRACE_INFO("NB_FRAME set to: %d\n", param);
+        // 在这里进行参数设置的具体操作
+				ATC_M_NB_FRAME =param;
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid parameter.\n");
+    }
+}
+
 void AT_CW_event_callback(char* param1, char* param2){
     if (param1 != NULL) {
         int param = atoi(param1);  
@@ -475,3 +495,4 @@ void AT_CW_event_callback(char* param1, char* param2){
         HAL_DBG_TRACE_INFO("Invalid parameter.\n");
     }
 }
+

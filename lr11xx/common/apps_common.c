@@ -133,7 +133,7 @@ static lr11xx_radio_mod_params_lora_t lora_mod_params = {
 static const lr11xx_radio_pkt_params_lora_t lora_pkt_params = {
     .preamble_len_in_symb = LORA_PREAMBLE_LENGTH,
     .header_type          = LORA_PKT_LEN_MODE,
-    .pld_len_in_bytes     = PAYLOAD_LENGTH,
+    //.pld_len_in_bytes     = PAYLOAD_LENGTH,
     .crc                  = LORA_CRC,
     .iq                   = LORA_IQ,
 };
@@ -151,7 +151,7 @@ static const lr11xx_radio_pkt_params_gfsk_t gfsk_pkt_params = {
     .sync_word_len_in_bits = FSK_SYNCWORD_LENGTH,
     .address_filtering     = FSK_ADDRESS_FILTERING,
     .header_type           = FSK_HEADER_TYPE,
-    .pld_len_in_bytes      = PAYLOAD_LENGTH,
+//    .pld_len_in_bytes      = PAYLOAD_LENGTH,
     .crc_type              = FSK_CRC_TYPE,
     .dc_free               = FSK_DC_FREE,
 };
@@ -586,6 +586,7 @@ void apps_common_lr11xx_radio_rttof_init( const void* context )
 
 void apps_common_lr11xx_receive( const void* context, uint8_t* buffer, uint8_t buffer_length, uint8_t* size )
 {
+    HAL_DBG_TRACE_INFO( "Entering apps_common_lr11xx_receive\n" );
     lr11xx_radio_rx_buffer_status_t rx_buffer_status;
     lr11xx_radio_pkt_status_lora_t  pkt_status_lora;
     lr11xx_radio_pkt_status_gfsk_t  pkt_status_gfsk;
@@ -617,6 +618,7 @@ void apps_common_lr11xx_receive( const void* context, uint8_t* buffer, uint8_t b
         HAL_DBG_TRACE_INFO( "  - RSSI average = %i dBm\n", pkt_status_gfsk.rssi_avg_in_dbm );
         HAL_DBG_TRACE_INFO( "  - RSSI sync = %i dBm\n", pkt_status_gfsk.rssi_sync_in_dbm );
     }
+    HAL_DBG_TRACE_INFO( "Exiting apps_common_lr11xx_receive\n" );
 }
 
 void apps_common_lr11xx_irq_process( const void* context, lr11xx_system_irq_mask_t irq_filter_mask )
@@ -931,74 +933,75 @@ void radio_on_dio_irq( void* context )
 void on_tx_done( void )
 {
     HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+		HAL_DBG_TRACE_INFO( "on_tx_done No IRQ routine defined\n" );
 }
 void on_rx_done( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+		HAL_DBG_TRACE_INFO( "on_rx_done No IRQ routine defined\n" );
 }
 void on_rx_timeout( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_rx_timeout No IRQ routine defined\n" );
 }
 void on_preamble_detected( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_preamble_detected No IRQ routine defined\n" );
 }
 void on_syncword_header_valid( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_syncword_header_valid No IRQ routine defined\n" );
 }
 void on_header_error( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_header_error No IRQ routine defined\n" );
 }
 void on_fsk_len_error( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_fsk_len_error No IRQ routine defined\n" );
 }
 void on_rx_crc_error( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_rx_crc_error No IRQ routine defined\n" );
 }
 void on_cad_done_undetected( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_cad_done_undetected No IRQ routine defined\n" );
 }
 void on_cad_done_detected( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_cad_done_detected No IRQ routine defined\n" );
 }
 void on_lora_rx_timestamp( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_lora_rx_timestamp No IRQ routine defined\n" );
 }
 void on_wifi_scan_done( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_wifi_scan_done No IRQ routine defined\n" );
 }
 void on_gnss_scan_done( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_gnss_scan_done No IRQ routine defined\n" );
 }
 void on_rttof_request_valid( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_rttof_request_valid No IRQ routine defined\n" );
 }
 void on_rttof_request_discarded( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_rttof_request_discarded No IRQ routine defined\n" );
 }
 void on_rttof_response_done( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_rttof_response_done No IRQ routine defined\n" );
 }
 void on_rttof_exchange_valid( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_rttof_exchange_valid No IRQ routine defined\n" );
 }
 void on_rttof_timeout( void )
 {
-    HAL_DBG_TRACE_INFO( "No IRQ routine defined\n" );
+    HAL_DBG_TRACE_INFO( "on_rttof_timeout No IRQ routine defined\n" );
 }
 
 /* --- EOF ------------------------------------------------------------------ */

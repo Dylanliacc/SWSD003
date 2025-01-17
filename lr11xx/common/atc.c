@@ -17,6 +17,9 @@ int ATC_M_LORA_BW = LR11XX_RADIO_LORA_BW_125;
 int ATC_M_LORA_CR = LR11XX_RADIO_LORA_CR_4_5;
 
 int ATC_M_CW_SWITCH = 1;
+
+int ATC_M_NB_FRAME = 20;
+
 bool ATC_Init(ATC_HandleTypeDef* hAtc, smtc_hal_mcu_uart_inst_t hUart, uint16_t BufferSize, const char* pName) {
     if (hAtc == NULL || hUart == NULL) {
         HAL_DBG_TRACE_ERROR("ATC_Init failed: invalid parameters.\n");
