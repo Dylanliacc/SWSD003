@@ -444,7 +444,7 @@ void apps_common_lr11xx_radio_init( const void* context )
     ASSERT_LR11XX_RC( lr11xx_radio_set_pa_cfg( context, &( pa_pwr_cfg->pa_config ) ) );
     ASSERT_LR11XX_RC( lr11xx_radio_set_tx_params( context, pa_pwr_cfg->power, PA_RAMP_TIME ) );
     ASSERT_LR11XX_RC( lr11xx_radio_set_rx_tx_fallback_mode( context, FALLBACK_MODE ) );
-    ASSERT_LR11XX_RC( lr11xx_radio_cfg_rx_boosted( context, ENABLE_RX_BOOST_MODE ) );
+    ASSERT_LR11XX_RC( lr11xx_radio_cfg_rx_boosted( context, ATC_M_LORA_RX_BOOST ) );
 
     if( PACKET_TYPE == LR11XX_RADIO_PKT_TYPE_LORA )
     {
@@ -562,7 +562,7 @@ void apps_common_lr11xx_radio_rttof_init( const void* context )
     ASSERT_LR11XX_RC( lr11xx_radio_set_pa_cfg( context, &( pa_pwr_cfg->pa_config ) ) );
     ASSERT_LR11XX_RC( lr11xx_radio_set_tx_params( context, pa_pwr_cfg->power, PA_RAMP_TIME ) );
     ASSERT_LR11XX_RC( lr11xx_radio_set_rx_tx_fallback_mode( context, FALLBACK_MODE ) );
-    ASSERT_LR11XX_RC( lr11xx_radio_cfg_rx_boosted( context, ENABLE_RX_BOOST_MODE ) );
+    ASSERT_LR11XX_RC( lr11xx_radio_cfg_rx_boosted( context, ATC_M_LORA_RX_BOOST ) );
 
     print_lora_configuration( );
 
@@ -857,7 +857,7 @@ void print_common_configuration( void )
     HAL_DBG_TRACE_INFO( "   RF frequency  = %u Hz\n", ATC_M_RF_FREQ_IN_HZ );
     HAL_DBG_TRACE_INFO( "   Output power  = %i dBm\n", ATC_M_TX_OUTPUT_POWER_DBM );
     HAL_DBG_TRACE_INFO( "   Fallback mode = %s\n", lr11xx_radio_fallback_modes_to_str( FALLBACK_MODE ) );
-    HAL_DBG_TRACE_INFO( ( ENABLE_RX_BOOST_MODE == true ) ? "   Rx boost activated\n" : "   Rx boost deactivated\n" );
+    HAL_DBG_TRACE_INFO( ( ATC_M_LORA_RX_BOOST == true ) ? "   Rx boost activated\n" : "   Rx boost deactivated\n" );
     HAL_DBG_TRACE_PRINTF( "\n" );
 }
 

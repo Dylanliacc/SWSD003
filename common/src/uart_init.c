@@ -56,9 +56,13 @@ void AT_NB_FRAME_event_callback(char* param1, char* param2);  // NB_FRAME设置�
 
 void AT_Help_Callback(char* param1, char* param2);  // 帮助指令
 
-void AT_CW_event_callback(char* param1, char* param2);  
+void AT_CW_event_callback(char* param1, char* param2); 
+
+void AT_RX_BOOST_event_callback(char* param1, char* param2); 
 
 void AT_TRSW_event_callback(char* param1, char* param2);  
+
+void AT_SLEEP_event_callback(char* param1, char* param2);  //Deepsleep
 
 void AT_START_event_callback(char* param1, char* param2);  // 启动指令
 /*
@@ -107,9 +111,13 @@ void uart_init(void)
     {"AT+CR", AT_CR_Callback},  // CR设置指令
 		{"AT+CWSW", AT_CW_event_callback},  // 
 		{"AT+NBFRAME", AT_NB_FRAME_event_callback},
+		{"AT+RXBOOST", AT_RX_BOOST_event_callback},
     {"AT+HELP",AT_Help_Callback},    // 帮助指令
     {"AT+PER", atc_per_event_callback},  // 测试指令
+		
+		{"AT+SLEEP", AT_SLEEP_event_callback},  // 启动指令
     {"AT+START", AT_START_event_callback},  // 启动指令
+		
     {NULL, NULL}  // 事件结束标志
 };
 		
@@ -496,3 +504,24 @@ void AT_CW_event_callback(char* param1, char* param2){
     }
 }
 
+void AT_RX_BOOST_event_callback(char* param1, char* param2){
+    if (param1 != NULL) {
+        int param = atoi(param1);  
+        HAL_DBG_TRACE_INFO("RX_BOOST Switch set to: %d\n", param);
+        // 在这里进行参数设置的具体操作
+				ATC_M_LORA_RX_BOOST =param;
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid parameter.\n");
+    }
+}
+
+void AT_SLEEP_event_callback(char* param1, char* param2){
+    if (param1 != NULL) {
+        int param = atoi(param1);  
+        HAL_DBG_TRACE_INFO("SLEEP Time set to: %d\n", param);
+        // 在这里进行参数设置的具体操作
+				ATC_M_LORA_SLEEP=param;
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid parameter.\n");
+    }
+}

@@ -46,4 +46,8 @@ extern int ATC_M_LORA_CR;
 extern int ATC_M_CW_SWITCH;
 
 extern int ATC_M_NB_FRAME;
+
+extern int ATC_M_LORA_RX_BOOST;
+
+extern int ATC_M_LORA_SLEEP;
 #endif

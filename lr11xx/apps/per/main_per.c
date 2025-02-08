@@ -136,9 +136,15 @@ int main( void )
     bool at_command_ready = false;
     while (!at_command_ready) {
         at_command_ready = main_loop();  // 处理AT指令
-    }	
-    
+    }
+		lr11xx_system_sleep_cfg_t sleep_cfg = {true, true};
+
     context = apps_common_lr11xx_get_context( );
+		
+		if(ATC_M_LORA_SLEEP ==1 ){
+			lr11xx_system_set_sleep((void* ) context ,sleep_cfg,
+                                         10000);
+		}
 		//lr11xx_radio_cfg_rx_boosted( context, true);
     apps_common_lr11xx_system_init( ( void* ) context );
     apps_common_lr11xx_fetch_and_print_version( ( void* ) context );
@@ -314,10 +320,10 @@ void on_rx_done( void )
     apps_common_lr11xx_receive(context, buffer, PAYLOAD_LENGTH, &size);
 
     // Log received buffer content and size
-    HAL_DBG_TRACE_INFO("Received buffer content: ");
-    for (int i = 0; i < size; i++) {
-        HAL_DBG_TRACE_PRINTF("%02X ", buffer[i]);
-    }
+    HAL_DBG_TRACE_INFO("Received buffer content: Jumped");
+    //for (int i = 0; i < size; i++) {
+      //  HAL_DBG_TRACE_PRINTF("%02X ", buffer[i]);
+    //}
     HAL_DBG_TRACE_INFO("\n");
     HAL_DBG_TRACE_PRINTF("Received size: %d\n", size);
 

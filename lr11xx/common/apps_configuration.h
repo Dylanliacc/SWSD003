@@ -74,7 +74,9 @@ extern "C" {
 #define ENABLE_RX_BOOST_MODE true
 #endif
 #ifndef PAYLOAD_LENGTH
-#define PAYLOAD_LENGTH 10
+//#define PAYLOAD_LENGTH 10
+//#define PAYLOAD_LENGTH 64
+#define PAYLOAD_LENGTH 64
 #endif
 
 /*!
