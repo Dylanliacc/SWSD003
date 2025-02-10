@@ -27,84 +27,53 @@ Project File Date:  01/13/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'E:\program\keil\core\ARM\ARMCC\Bin'
 Build target 'LR1120MB1DIS'
-compiling main_per.c...
-..\..\..\common\lr11xx_hal_context.h(111): warning:  #1-D: last line of file ends without a newline
-  #endif  // LR11XX_HAL_CONTEXT_H
-..\..\..\common\apps_common.h(89): warning:  #1295-D: Deprecated declaration apps_common_lr11xx_get_context - give arg types
-  lr11xx_hal_context_t* apps_common_lr11xx_get_context( );
+compiling uart_init.c...
 ..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu.h(76): warning:  #1295-D: Deprecated declaration smtc_hal_mcu_init - give arg types
   smtc_hal_mcu_status_t smtc_hal_mcu_init( );
-..\main_per.c(385): warning:  #1-D: last line of file ends without a newline
-  }
-..\main_per.c(96): warning:  #177-D: variable "rolling_counter"  was declared but never referenced
-  static uint8_t rolling_counter = 0;
-..\main_per.c: 5 warnings, 0 errors
-compiling apps_version.c...
-..\..\..\common\lr11xx_hal_context.h(111): warning:  #1-D: last line of file ends without a newline
-  #endif  // LR11XX_HAL_CONTEXT_H
-..\..\..\common\apps_common.h(89): warning:  #1295-D: Deprecated declaration apps_common_lr11xx_get_context - give arg types
-  lr11xx_hal_context_t* apps_common_lr11xx_get_context( );
-..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu.h(76): warning:  #1295-D: Deprecated declaration smtc_hal_mcu_init - give arg types
-  smtc_hal_mcu_status_t smtc_hal_mcu_init( );
-..\..\..\common\apps_version.c: 3 warnings, 0 errors
-compiling apps_common.c...
-..\..\..\common\lr11xx_hal_context.h(111): warning:  #1-D: last line of file ends without a newline
-  #endif  // LR11XX_HAL_CONTEXT_H
-..\..\..\common\apps_common.h(89): warning:  #1295-D: Deprecated declaration apps_common_lr11xx_get_context - give arg types
-  lr11xx_hal_context_t* apps_common_lr11xx_get_context( );
-..\..\..\..\libs\smtc-hal-mcu\inc\smtc_hal_mcu.h(76): warning:  #1295-D: Deprecated declaration smtc_hal_mcu_init - give arg types
-  smtc_hal_mcu_status_t smtc_hal_mcu_init( );
-..\..\..\..\common\inc\smtc_shield_pinout_mapping.h(76): warning:  #815-D: type qualifier on return type is meaningless
-  const smtc_hal_mcu_gpio_cfg_t smtc_shield_pinout_mapping_get_gpio_cfg( smtc_shield_pinout_t gpio );
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr11x0_common.h(87): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR11X0_COMMON_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1110mb1dis.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1110MB1DIS_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1110mb1djs.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1110MB1DJS_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1110mb1gis.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1110MB1GIS_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1110mb1gjs.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1110MB1GJS_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1120mb1dis.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1120MB1DIS_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1120mb1djs.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1120MB1DJS_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1120mb1gis.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1120MB1GIS_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1120mb1gjs.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1120MB1GJS_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr11x1_common.h(84): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR11X1_COMMON_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1121mb1dis.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1121MB1DIS_H
-..\..\..\..\libs\smtc-shields\lr11xx\inc\smtc_shield_lr1121mb1gis.h(123): warning:  #1-D: last line of file ends without a newline
-  #endif  // SMTC_SHIELD_LR1121MB1GIS_H
-..\..\..\common\apps_common.c(452): warning:  #188-D: enumerated type mixed with another type
-  				lora_mod_params.sf = ATC_M_LORA_SF;
-..\..\..\common\apps_common.c(453): warning:  #188-D: enumerated type mixed with another type
-  				lora_mod_params.bw = ATC_M_LORA_BW;
-..\..\..\common\apps_common.c(454): warning:  #188-D: enumerated type mixed with another type
-  				lora_mod_params.cr = ATC_M_LORA_CR;
-..\..\..\common\apps_common.c(455): warning:  #188-D: enumerated type mixed with another type
-  				lora_mod_params.ldro = apps_common_compute_lora_ldro( ATC_M_LORA_SF, ATC_M_LORA_BW );
-..\..\..\common\apps_common.c(455): warning:  #188-D: enumerated type mixed with another type
-  				lora_mod_params.ldro = apps_common_compute_lora_ldro( ATC_M_LORA_SF, ATC_M_LORA_BW );
-..\..\..\common\apps_common.c(867): warning:  #188-D: enumerated type mixed with another type
-      
-AL_DBG_TRACE_INFO( "   Spreading factor = %s\n", lr11xx_radio_lora_sf_to_str( ATC_M_LORA_SF ) );
-..\..\..\common\apps_common.c(868): warning:  #188-D: enumerated type mixed with another type
-      
-AL_DBG_TRACE_INFO( "   Bandwidth        = %s\n", lr11xx_radio_lora_bw_to_str( ATC_M_LORA_BW ) );
-..\..\..\common\apps_common.c(869): warning:  #188-D: enumerated type mixed with another type
-      
-AL_DBG_TRACE_INFO( "   Coding rate      = %s\n", lr11xx_radio_lora_cr_to_str( ATC_M_LORA_CR ) );
-..\..\..\common\apps_common.c: 24 warnings, 0 errors
+..\..\..\..\common\src\uart_init.c(128): warning:  #144-D: a value of type "void (*)(const char *)" cannot be used to initialize an entity of type "ATC_EventCallback"
+      {"AT+PER", atc_per_event_callback},  // 测试指令
+..\..\..\..\common\src\uart_init.c(155): warning:  #223-D: function "vsprintf" declared implicitly
+      if (0 < vsprintf(string, fmt, argp)) {  // Build the formatted string
+..\..\..\..\common\src\uart_init.c(175): warning:  #191-D: type qualifier is meaningless on cast type
+      int init_result = smtc_hal_mcu_uart_init(( const smtc_hal_mcu_uart_cfg_t )&cfg_uart, &uart_cfg_app, &inst_uart);
+..\..\..\..\common\src\uart_init.c(262): warning:  #223-D: function "strtoul" declared implicitly
+          uint32_t frequency = strtoul(param1, &endptr, 10);  // 使用 strtoul 转换字符串为 uint32_t
+..\..\..\..\common\src\uart_init.c(278): warning:  #223-D: function "atoi" declared implicitly
+          int power = atoi(param1);  // 将功率字符串转换为整�?
+..\..\..\..\common\src\uart_init.c(291): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  // 将超参数字符串转换为整数
+..\..\..\..\common\src\uart_init.c(304): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  // 将超参数字符串转换为整数
+..\..\..\..\common\src\uart_init.c(346): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  // 将超参数字符串转换为整数
+..\..\..\..\common\src\uart_init.c(400): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  // 将超参数字符串转换为整数
+..\..\..\..\common\src\uart_init.c(519): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c(530): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c(541): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c(552): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c(563): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c(575): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c(586): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c(597): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c(608): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c(619): warning:  #223-D: function "atoi" declared implicitly
+          int param = atoi(param1);  
+..\..\..\..\common\src\uart_init.c: 20 warnings, 0 errors
 linking...
-Program Size: Code=33260 RO-data=2840 RW-data=280 ZI-data=2904  
+Program Size: Code=35268 RO-data=3000 RW-data=340 ZI-data=2900  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bincombined --output=per.bin .\build\LR1120MB1DIS\per.axf
-".\build\LR1120MB1DIS\per.axf" - 0 Error(s), 32 Warning(s).
+".\build\LR1120MB1DIS\per.axf" - 0 Error(s), 20 Warning(s).
 
 <h2>Software Packages used:</h2>
 

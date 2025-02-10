@@ -24,6 +24,15 @@ int ATC_M_LORA_RX_BOOST =1;
 
 int ATC_M_LORA_SLEEP =0;
 
+int ATC_M_PA_PA_SEL =1000;
+
+int ATC_M_PA_PA_RGE_SUPPLY =1000;
+
+int ATC_M_PA_PA_DUTY_CYCLE =1000;
+
+int ATC_M_PA_PA_REAL_POWER =1000;
+
+int ATC_M_PA_PA_HP_SEL = 1000;
 
 bool ATC_Init(ATC_HandleTypeDef* hAtc, smtc_hal_mcu_uart_inst_t hUart, uint16_t BufferSize, const char* pName) {
     if (hAtc == NULL || hUart == NULL) {

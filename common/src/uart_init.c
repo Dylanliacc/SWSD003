@@ -65,6 +65,18 @@ void AT_TRSW_event_callback(char* param1, char* param2);
 void AT_SLEEP_event_callback(char* param1, char* param2);  //Deepsleep
 
 void AT_START_event_callback(char* param1, char* param2);  // 启动指令
+
+
+void ATC_PA_SEL_event_callback(char* param1, char* param2); 
+
+void ATC_HP_PA_SEL_event_callback(char* param1, char* param2); 
+
+void ATC_PA_RGE_SUPPLY_event_callback(char* param1, char* param2);  
+
+void AT_PA_DUTY_CYCLE_event_callback(char* param1, char* param2);  
+
+void AT_PA_REAL_POWER_event_callback(char* param1, char* param2);  
+
 /*
  * -----------------------------------------------------------------------------
  * --- PRIVATE FUNCTIONS DECLARATION -------------------------------------------
@@ -105,7 +117,7 @@ void uart_init(void)
     {"AT+FREQ", AT_Freq_Callback},   // 频率设置指令
     {"AT+POWER", AT_Power_Callback}, // 功率设置指令
     {"AT+PARAM", AT_Param_Callback}, // 超参数设置指令
-	{"AT+TRSW", AT_TRSW_event_callback},  // 启动指令
+		{"AT+TRSW", AT_TRSW_event_callback},  // 启动指令
     {"AT+SF", AT_SF_Callback},  // SF设置指令
     {"AT+BW", AT_BW_Callback},  // BW设置指令
     {"AT+CR", AT_CR_Callback},  // CR设置指令
@@ -115,8 +127,14 @@ void uart_init(void)
     {"AT+HELP",AT_Help_Callback},    // 帮助指令
     {"AT+PER", atc_per_event_callback},  // 测试指令
 		
-		{"AT+SLEEP", AT_SLEEP_event_callback},  // 启动指令
+		{"AT+SLEEP", AT_SLEEP_event_callback},  // sleep指令
     {"AT+START", AT_START_event_callback},  // 启动指令
+		{"AT+HP_PA_SEL", ATC_HP_PA_SEL_event_callback},  // PA_HP_SEL
+		{"AT+PA_SEL", ATC_PA_SEL_event_callback},  // PA_SEL
+		{"AT+PA_RGE_SUPPLY", ATC_PA_RGE_SUPPLY_event_callback},  // PA_REG_SUPPLY
+		{"AT+PA_DUTY_CYCLE", AT_PA_DUTY_CYCLE_event_callback},  // PA_DUTY_CYCLE
+		{"AT+PA_REAL_POWER", AT_PA_REAL_POWER_event_callback},  // PA_REAL_POWER
+		
 		
     {NULL, NULL}  // 事件结束标志
 };
@@ -421,6 +439,31 @@ void AT_CR_Callback(char* param1, char* param2) {
 void AT_Help_Callback(char* param1, char* param2) {
     HAL_DBG_TRACE_INFO("AT+HELP received.\n");
     // 在这里添加帮助信息
+		//PA相关
+// 以下是针对 PA 参数的 AT 指令
+    HAL_DBG_TRACE_INFO("AT+HP_PA_SEL=<value>\n");
+    HAL_DBG_TRACE_INFO("  - Set the PA HP selection parameter.\n");
+    HAL_DBG_TRACE_INFO("    Example: AT+HP_PA_SEL=7\n");
+
+    HAL_DBG_TRACE_INFO("AT+PA_SEL=<value>\n");
+    HAL_DBG_TRACE_INFO("  - Set the PA selection parameter (e.g., 0 for LP, 1 for HP).\n");
+    HAL_DBG_TRACE_INFO("    Example: AT+PA_SEL=0\n");
+
+    HAL_DBG_TRACE_INFO("AT+PA_RGE_SUPPLY=<value>\n");
+    HAL_DBG_TRACE_INFO("  - Set the PA regulator supply source (e.g., 0 for VREG, 1 for VBAT).\n");
+    HAL_DBG_TRACE_INFO("    Example: AT+PA_RGE_SUPPLY=0\n");
+
+    HAL_DBG_TRACE_INFO("AT+PA_DUTY_CYCLE=<value>\n");
+    HAL_DBG_TRACE_INFO("  - Set the PA duty cycle.\n");
+    HAL_DBG_TRACE_INFO("    Example: AT+PA_DUTY_CYCLE=4\n");
+
+    HAL_DBG_TRACE_INFO("AT+PA_REAL_POWER=<value>\n");
+    HAL_DBG_TRACE_INFO("  - Override the PA configuration power value.\n");
+    HAL_DBG_TRACE_INFO("    Example: AT+PA_REAL_POWER=14\n");
+
+
+
+
     HAL_DBG_TRACE_INFO("AT+FREQ=<frequency> : Set the frequency in Hz (e.g., AT+FREQ=868000000)\n");
     HAL_DBG_TRACE_INFO("AT+POWER=<power> : Set the power in dBm (e.g., AT+POWER=14)\n");
     HAL_DBG_TRACE_INFO("AT+PARAM=<param> : Set a parameter (Not work but available to call)\n");
@@ -525,3 +568,60 @@ void AT_SLEEP_event_callback(char* param1, char* param2){
         HAL_DBG_TRACE_INFO("Invalid parameter.\n");
     }
 }
+
+
+void ATC_PA_SEL_event_callback(char* param1, char* param2){
+	    if (param1 != NULL) {
+        int param = atoi(param1);  
+        HAL_DBG_TRACE_INFO("PA_SEL set to: %d\n", param);
+        // 在这里进行参数设置的具体操作
+				ATC_M_PA_PA_SEL=param;
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid parameter.\n");
+    }
+}
+
+void ATC_PA_RGE_SUPPLY_event_callback(char* param1, char* param2){
+		if (param1 != NULL) {
+        int param = atoi(param1);  
+        HAL_DBG_TRACE_INFO("PA_RGE_SUPPLY set to: %d\n", param);
+        // 在这里进行参数设置的具体操作
+				ATC_M_PA_PA_RGE_SUPPLY=param;
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid parameter.\n");
+    }
+}  
+
+void AT_PA_DUTY_CYCLE_event_callback(char* param1, char* param2){
+			if (param1 != NULL) {
+        int param = atoi(param1);  
+        HAL_DBG_TRACE_INFO("PA_DUTY_CYCLE set to: %d\n", param);
+        // 在这里进行参数设置的具体操作
+				ATC_M_PA_PA_DUTY_CYCLE=param;
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid parameter.\n");
+    }
+}
+
+void AT_PA_REAL_POWER_event_callback(char* param1, char* param2){
+		if (param1 != NULL) {
+        int param = atoi(param1);  
+        HAL_DBG_TRACE_INFO("PA_REAL_POWER set to: %d\n", param);
+        // 在这里进行参数设置的具体操作
+				ATC_M_PA_PA_REAL_POWER=param;
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid parameter.\n");
+    }
+}
+
+void ATC_HP_PA_SEL_event_callback(char* param1, char* param2){
+	  if (param1 != NULL) {
+        int param = atoi(param1);  
+        HAL_DBG_TRACE_INFO("HP_PA_SEL set to: %d\n", param);
+        // 在这里进行参数设置的具体操作
+				ATC_M_PA_PA_HP_SEL=param;
+    } else {
+        HAL_DBG_TRACE_INFO("Invalid parameter.\n");
+    }
+}
+

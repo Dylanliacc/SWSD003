@@ -419,12 +419,86 @@ void apps_common_print_sdk_driver_version( void )
     HAL_DBG_TRACE_INFO( "\n" );
 }
 
+// void apps_common_lr11xx_radio_init( const void* context )
+// {
+//     const smtc_shield_lr11xx_pa_pwr_cfg_t* pa_pwr_cfg =
+// //        smtc_shield_lr11xx_get_pa_pwr_cfg( &shield, RF_FREQ_IN_HZ, TX_OUTPUT_POWER_DBM );
+// 				smtc_shield_lr11xx_get_pa_pwr_cfg( &shield, ATC_M_RF_FREQ_IN_HZ, ATC_M_TX_OUTPUT_POWER_DBM);
+//     if( pa_pwr_cfg == NULL )
+//     {
+//         HAL_DBG_TRACE_ERROR( "Invalid target frequency or power level\n" );
+//         while( true )
+//         {
+//         }
+//     }
+
+//     print_common_configuration( );
+
+//     ASSERT_LR11XX_RC( lr11xx_radio_set_pkt_type( context, PACKET_TYPE ) );
+//     //ASSERT_LR11XX_RC( lr11xx_radio_set_rf_freq( context, RF_FREQ_IN_HZ ) );
+// 		ASSERT_LR11XX_RC( lr11xx_radio_set_rf_freq( context, ATC_M_RF_FREQ_IN_HZ ) );
+// //    ASSERT_LR11XX_RC( lr11xx_radio_set_rssi_calibration(
+// //        context, smtc_shield_lr11xx_get_rssi_calibration_table( &shield, RF_FREQ_IN_HZ ) ) );
+// 		ASSERT_LR11XX_RC( lr11xx_radio_set_rssi_calibration(
+//     context, smtc_shield_lr11xx_get_rssi_calibration_table( &shield, ATC_M_RF_FREQ_IN_HZ ) ) );
+//     ASSERT_LR11XX_RC( lr11xx_radio_set_pa_cfg( context, &( pa_pwr_cfg->pa_config ) ) );
+//     ASSERT_LR11XX_RC( lr11xx_radio_set_tx_params( context, pa_pwr_cfg->power, PA_RAMP_TIME ) );
+//     ASSERT_LR11XX_RC( lr11xx_radio_set_rx_tx_fallback_mode( context, FALLBACK_MODE ) );
+//     ASSERT_LR11XX_RC( lr11xx_radio_cfg_rx_boosted( context, ATC_M_LORA_RX_BOOST ) );
+
+//     if( PACKET_TYPE == LR11XX_RADIO_PKT_TYPE_LORA )
+//     {
+//         print_lora_configuration( );
+// 				lora_mod_params.sf = ATC_M_LORA_SF;
+// 				lora_mod_params.bw = ATC_M_LORA_BW;
+// 				lora_mod_params.cr = ATC_M_LORA_CR;
+// 				lora_mod_params.ldro = apps_common_compute_lora_ldro( ATC_M_LORA_SF, ATC_M_LORA_BW );
+//         //lora_mod_params.ldro = apps_common_compute_lora_ldro( LORA_SPREADING_FACTOR, LORA_BANDWIDTH );
+//         ASSERT_LR11XX_RC( lr11xx_radio_set_lora_mod_params( context, &lora_mod_params ) );
+//         ASSERT_LR11XX_RC( lr11xx_radio_set_lora_pkt_params( context, &lora_pkt_params ) );
+//         ASSERT_LR11XX_RC( lr11xx_radio_set_lora_sync_word( context, LORA_SYNCWORD ) );
+//     }
+//     else if( PACKET_TYPE == LR11XX_RADIO_PKT_TYPE_GFSK )
+//     {
+//         print_gfsk_configuration( );
+
+//         ASSERT_LR11XX_RC( lr11xx_radio_set_gfsk_mod_params( context, &gfsk_mod_params ) );
+//         ASSERT_LR11XX_RC( lr11xx_radio_set_gfsk_pkt_params( context, &gfsk_pkt_params ) );
+//         ASSERT_LR11XX_RC( lr11xx_radio_set_gfsk_sync_word( context, gfsk_sync_word ) );
+
+//         if( FSK_DC_FREE != LR11XX_RADIO_GFSK_DC_FREE_OFF )
+//         {
+//             ASSERT_LR11XX_RC( lr11xx_radio_set_gfsk_whitening_seed( context, FSK_WHITENING_SEED ) );
+//         }
+
+//         if( FSK_CRC_TYPE != LR11XX_RADIO_GFSK_CRC_OFF )
+//         {
+//             ASSERT_LR11XX_RC( lr11xx_radio_set_gfsk_crc_params( context, FSK_CRC_SEED, FSK_CRC_POLYNOMIAL ) );
+//         }
+
+//         if( FSK_ADDRESS_FILTERING != LR11XX_RADIO_GFSK_ADDRESS_FILTERING_DISABLE )
+//         {
+//             ASSERT_LR11XX_RC( lr11xx_radio_set_pkt_address( context, FSK_NODE_ADDRESS, FSK_BROADCAST_ADDRESS ) );
+//         }
+//     }
+//     else if( PACKET_TYPE == LR11XX_RADIO_PKT_TYPE_LR_FHSS )
+//     {
+//         const lr11xx_radio_mod_params_lr_fhss_t mod_lr_fhss = {
+//             .br_in_bps   = LR11XX_RADIO_LR_FHSS_BITRATE_488_BPS,
+//             .pulse_shape = LR11XX_RADIO_LR_FHSS_PULSE_SHAPE_BT_1,
+//         };
+
+//         ASSERT_LR11XX_RC( lr11xx_radio_set_lr_fhss_mod_params( context, &mod_lr_fhss ) );
+//     }
+// }
 void apps_common_lr11xx_radio_init( const void* context )
 {
-    const smtc_shield_lr11xx_pa_pwr_cfg_t* pa_pwr_cfg =
-//        smtc_shield_lr11xx_get_pa_pwr_cfg( &shield, RF_FREQ_IN_HZ, TX_OUTPUT_POWER_DBM );
-				smtc_shield_lr11xx_get_pa_pwr_cfg( &shield, ATC_M_RF_FREQ_IN_HZ, ATC_M_TX_OUTPUT_POWER_DBM);
-    if( pa_pwr_cfg == NULL )
+    // 从 PA 表中获取对应的配置（注意：返回的是 const 指针）
+    const smtc_shield_lr11xx_pa_pwr_cfg_t* pa_pwr_cfg_const =
+    //    smtc_shield_lr11xx_get_pa_pwr_cfg( &shield, RF_FREQ_IN_HZ, TX_OUTPUT_POWER_DBM );
+            smtc_shield_lr11xx_get_pa_pwr_cfg( &shield, ATC_M_RF_FREQ_IN_HZ, ATC_M_TX_OUTPUT_POWER_DBM );
+
+    if( pa_pwr_cfg_const == NULL )
     {
         HAL_DBG_TRACE_ERROR( "Invalid target frequency or power level\n" );
         while( true )
@@ -432,28 +506,53 @@ void apps_common_lr11xx_radio_init( const void* context )
         }
     }
 
+    // 复制配置到局部变量（这样可以修改）
+    smtc_shield_lr11xx_pa_pwr_cfg_t pa_pwr_cfg = *pa_pwr_cfg_const;
+
+    // 根据变量或其他条件，修改 pa 配置中需要调整的参数
+    // 例如，这里使用一个变量 new_pa_duty_cycle 来更新占空比
+		if(ATC_M_PA_PA_DUTY_CYCLE !=1000){
+			uint8_t new_pa_duty_cycle = ATC_M_PA_PA_DUTY_CYCLE;		
+			pa_pwr_cfg.pa_config.pa_duty_cycle = new_pa_duty_cycle;
+		}
+		if(ATC_M_PA_PA_SEL !=1000){
+			uint8_t new_pa_sel= ATC_M_PA_PA_SEL;
+			pa_pwr_cfg.pa_config.pa_sel = new_pa_sel;
+		}
+		if(ATC_M_PA_PA_HP_SEL !=1000){
+			uint8_t new_pa_hp_sel= ATC_M_PA_PA_HP_SEL;
+			pa_pwr_cfg.pa_config.pa_hp_sel = new_pa_hp_sel;
+		}
+		if(ATC_M_PA_PA_SEL !=1000){
+			uint8_t new_pa_reg_supply= ATC_M_PA_PA_SEL;
+			pa_pwr_cfg.pa_config.pa_reg_supply = ATC_M_PA_PA_RGE_SUPPLY;
+		}
+		if(ATC_M_PA_PA_REAL_POWER !=1000){
+			int8_t new_power =ATC_M_PA_PA_REAL_POWER;
+			pa_pwr_cfg.power =new_power;
+		}
+		
     print_common_configuration( );
 
     ASSERT_LR11XX_RC( lr11xx_radio_set_pkt_type( context, PACKET_TYPE ) );
-    //ASSERT_LR11XX_RC( lr11xx_radio_set_rf_freq( context, RF_FREQ_IN_HZ ) );
-		ASSERT_LR11XX_RC( lr11xx_radio_set_rf_freq( context, ATC_M_RF_FREQ_IN_HZ ) );
-//    ASSERT_LR11XX_RC( lr11xx_radio_set_rssi_calibration(
-//        context, smtc_shield_lr11xx_get_rssi_calibration_table( &shield, RF_FREQ_IN_HZ ) ) );
-		ASSERT_LR11XX_RC( lr11xx_radio_set_rssi_calibration(
-    context, smtc_shield_lr11xx_get_rssi_calibration_table( &shield, ATC_M_RF_FREQ_IN_HZ ) ) );
-    ASSERT_LR11XX_RC( lr11xx_radio_set_pa_cfg( context, &( pa_pwr_cfg->pa_config ) ) );
-    ASSERT_LR11XX_RC( lr11xx_radio_set_tx_params( context, pa_pwr_cfg->power, PA_RAMP_TIME ) );
+    // 设置射频频率
+    ASSERT_LR11XX_RC( lr11xx_radio_set_rf_freq( context, ATC_M_RF_FREQ_IN_HZ ) );
+    // 设置 RSSI 校准表
+    ASSERT_LR11XX_RC( lr11xx_radio_set_rssi_calibration(
+        context, smtc_shield_lr11xx_get_rssi_calibration_table( &shield, ATC_M_RF_FREQ_IN_HZ ) ) );
+    // 使用修改后的 pa_config 进行配置
+    ASSERT_LR11XX_RC( lr11xx_radio_set_pa_cfg( context, &( pa_pwr_cfg.pa_config ) ) );
+    ASSERT_LR11XX_RC( lr11xx_radio_set_tx_params( context, pa_pwr_cfg.power, PA_RAMP_TIME ) );
     ASSERT_LR11XX_RC( lr11xx_radio_set_rx_tx_fallback_mode( context, FALLBACK_MODE ) );
     ASSERT_LR11XX_RC( lr11xx_radio_cfg_rx_boosted( context, ATC_M_LORA_RX_BOOST ) );
 
     if( PACKET_TYPE == LR11XX_RADIO_PKT_TYPE_LORA )
     {
         print_lora_configuration( );
-				lora_mod_params.sf = ATC_M_LORA_SF;
-				lora_mod_params.bw = ATC_M_LORA_BW;
-				lora_mod_params.cr = ATC_M_LORA_CR;
-				lora_mod_params.ldro = apps_common_compute_lora_ldro( ATC_M_LORA_SF, ATC_M_LORA_BW );
-        //lora_mod_params.ldro = apps_common_compute_lora_ldro( LORA_SPREADING_FACTOR, LORA_BANDWIDTH );
+        lora_mod_params.sf = ATC_M_LORA_SF;
+        lora_mod_params.bw = ATC_M_LORA_BW;
+        lora_mod_params.cr = ATC_M_LORA_CR;
+        lora_mod_params.ldro = apps_common_compute_lora_ldro( ATC_M_LORA_SF, ATC_M_LORA_BW );
         ASSERT_LR11XX_RC( lr11xx_radio_set_lora_mod_params( context, &lora_mod_params ) );
         ASSERT_LR11XX_RC( lr11xx_radio_set_lora_pkt_params( context, &lora_pkt_params ) );
         ASSERT_LR11XX_RC( lr11xx_radio_set_lora_sync_word( context, LORA_SYNCWORD ) );
@@ -491,6 +590,7 @@ void apps_common_lr11xx_radio_init( const void* context )
         ASSERT_LR11XX_RC( lr11xx_radio_set_lr_fhss_mod_params( context, &mod_lr_fhss ) );
     }
 }
+
 
 void apps_common_lr11xx_radio_dbpsk_init( const void* context, const uint8_t payload_len )
 {

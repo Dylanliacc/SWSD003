@@ -50,4 +50,14 @@ extern int ATC_M_NB_FRAME;
 extern int ATC_M_LORA_RX_BOOST;
 
 extern int ATC_M_LORA_SLEEP;
+
+extern int ATC_M_PA_PA_HP_SEL;
+
+extern int ATC_M_PA_PA_SEL;
+
+extern int ATC_M_PA_PA_RGE_SUPPLY;
+
+extern int ATC_M_PA_PA_DUTY_CYCLE;
+
+extern int ATC_M_PA_PA_REAL_POWER;
 #endif
